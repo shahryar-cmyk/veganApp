@@ -10,41 +10,41 @@ import 'package:veganapp/Database/dummy_list.dart';
 import 'package:veganapp/Class/list_view_receipe.dart';
 
 class MainDrawer extends StatefulWidget {
-
   @override
   _MainDrawerState createState() => _MainDrawerState();
 }
 
 class _MainDrawerState extends State<MainDrawer> {
-  void selectMeal(BuildContext ctx) {
-    Navigator.of(ctx).push(
-      MaterialPageRoute(
-        builder: (_) {
-          return MainScreen();
-        },
-      ),
-    );
-  }
+  // void selectMeal(BuildContext ctx) {
+  //   Navigator.of(ctx).push(
+  //     MaterialPageRoute(
+  //       builder: (_) {
+  //         return MainScreen();
+  //       },
+  //     ),
+  //   );
+  // }
 
   void selectHome(BuildContext ctx) {
     Navigator.of(ctx).push(
       MaterialPageRoute(
         builder: (_) {
           return Home(
-            todos: DUMMY_LIST
-                .map(
-                  (meData) => ListViewReceipe(
-                      id: meData.id,
-                      title: meData.title,
-                      description: meData.description),
-                )
-                .toList(),
-          );
+              // todos: DUMMY_LIST
+              //     .map(
+              //       (meData) => ListViewReceipe(
+              //           id: meData.id,
+              //           title: meData.title,
+              //           description: meData.description),
+              //     )
+              //     .toList(),
+              );
         },
       ),
     );
   }
-   void store(BuildContext ctx) {
+
+  void store(BuildContext ctx) {
     Navigator.of(ctx).push(
       MaterialPageRoute(
         builder: (_) {
@@ -53,7 +53,8 @@ class _MainDrawerState extends State<MainDrawer> {
       ),
     );
   }
-void about(BuildContext ctx) {
+
+  void about(BuildContext ctx) {
     Navigator.of(ctx).push(
       MaterialPageRoute(
         builder: (_) {
@@ -62,9 +63,10 @@ void about(BuildContext ctx) {
       ),
     );
   }
- void share(BuildContext ctx){
-   Share.share('This is the Example App Check it out');
- }
+
+  void share(BuildContext ctx) {
+    Share.share('This is the Example App Check it out');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,22 +84,22 @@ void about(BuildContext ctx) {
                   image: AssetImage("images/ReceipeLogo.png"),
                   fit: BoxFit.fill)),
         ),
-        ListTile(
-          title: Text(
-            'Receipes',
-            style: TextStyle(
-                fontFamily: 'Quicksand',
-                color: Colors.black,
-                fontSize: 20,
-                fontWeight: FontWeight.bold),
-          ),
-          leading: Icon(
-            Icons.fastfood,
-            size: 30,
-            color: Colors.green,
-          ),
-          onTap: () => selectMeal(context),
-        ),
+        // ListTile(
+        //   title: Text(
+        //     'Receipes',
+        //     style: TextStyle(
+        //         fontFamily: 'Quicksand',
+        //         color: Colors.black,
+        //         fontSize: 20,
+        //         fontWeight: FontWeight.bold),
+        //   ),
+        //   leading: Icon(
+        //     Icons.fastfood,
+        //     size: 30,
+        //     color: Colors.green,
+        //   ),
+        //   onTap: () => selectMeal(context),
+        // ),
         ListTile(
           title: Text(
             'Home',
@@ -144,7 +146,7 @@ void about(BuildContext ctx) {
             size: 30,
             color: Colors.green,
           ),
-          onTap: ()=>store(context),
+          onTap: () => store(context),
         ),
         ListTile(
           title: Text(
@@ -160,7 +162,7 @@ void about(BuildContext ctx) {
             size: 30,
             color: Colors.green,
           ),
-          onTap: ()=>about(context),
+          onTap: () => about(context),
         ),
         // Divider(),
         ListTile(
@@ -172,14 +174,13 @@ void about(BuildContext ctx) {
                 fontSize: 20,
                 fontWeight: FontWeight.bold),
           ),
-          onTap: ()=>share(context),
+          onTap: () => share(context),
           leading: Icon(
             Icons.share,
             size: 30,
             color: Colors.green,
           ),
         ),
-        
       ],
     );
   }

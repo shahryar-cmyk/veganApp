@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
+import 'package:veganapp/Models/wordpress_post.dart';
+import 'package:veganapp/network_provider/post.dart';
+import 'package:veganapp/widgets/drawer.dart';
 import 'package:veganapp/widgets/navigation_bar.dart';
 import 'package:veganapp/Class/list_view_receipe.dart';
 
 class Home extends StatefulWidget {
-  final List<ListViewReceipe> todos;
-  Home({Key key, @required this.todos}) : super(key: key);
+  // final List<ListViewReceipe> todos;
+  Home({
+    Key key,
+  }) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();
@@ -13,49 +19,93 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
+    NetworkWordPress().getPosts();
     return Scaffold(
-      bottomNavigationBar: NavigationBar(),
-      appBar: AppBar(
-        iconTheme: new IconThemeData(color: Colors.black),
-        title: Text('Home',style: TextStyle(color: Colors.black),),
-        backgroundColor: Colors.lightGreenAccent[400],
-      ),
-      body: ListView.builder(
-        itemCount: widget.todos.length,
-        itemBuilder: (context, index) {
-          return Card(
-            margin: EdgeInsets.only(top: 8),
-            elevation: 10,
-                      child: ListTile(
-                        //index the child data to
-                        title: Center(
-                          child: Text(widget.todos[index].title,
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontFamily: 'Quicksand',
-                                  fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.justify),
+      // backgroundColor: Colors.green.shade900,
+
+      drawer: Drawer(child: MainDrawer()),
+
+      body: FutureBuilder(
+        future: NetworkWordPress().getPosts(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting)
+            return CircularProgressIndicator();
+          if (snapshot.connectionState == ConnectionState.done) {
+            final List<WordPressPost> wordPressPosts = snapshot.data;
+
+            return ListView.builder(
+              itemCount: wordPressPosts.length,
+              itemBuilder: (context, index) {
+                return Card(
+                  margin: EdgeInsets.all(8),
+                  elevation: 10,
+                  child: ListTile(
+                    //index the child data to
+
+                    title: Center(
+                      child: Text(wordPressPosts[index].title.rendered,
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontFamily: 'Quicksand',
+                              fontWeight: FontWeight.w500),
+                          textAlign: TextAlign.justify),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetailScreen(
+                            todo: wordPressPosts[index],
+                          ),
                         ),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => DetailScreen(
-                                todo: widget.todos[index],
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-          );
+                      );
+                    },
+                  ),
+                );
+              },
+            );
+          }
         },
       ),
+
+      // ListView.builder(
+      //   itemCount: widget.todos.length,
+      //   itemBuilder: (context, index) {
+      //     return
+      //     Card(
+      //       margin: EdgeInsets.only(top: 8),
+      //       elevation: 10,
+      //                 child: ListTile(
+      //                   //index the child data to
+      //                   title: Center(
+      //                     child: Text(widget.todos[index].title,
+      //                         style: TextStyle(
+      //                             fontSize: 20,
+      //                             fontFamily: 'Quicksand',
+      //                             fontWeight: FontWeight.bold),
+      //                         textAlign: TextAlign.justify),
+      //                   ),
+      //                   onTap: () {
+      //                     Navigator.push(
+      //                       context,
+      //                       MaterialPageRoute(
+      //                         builder: (context) => DetailScreen(
+      //                           todo: widget.todos[index],
+      //                         ),
+      //                       ),
+      //                     );
+      //                   },
+      //                 ),
+      //     );
+
+      //   },
+      // ),
     );
   }
 }
 
 class DetailScreen extends StatefulWidget {
-  final ListViewReceipe todo;
+  final WordPressPost todo;
   DetailScreen({Key key, @required this.todo}) : super(key: key);
 
   @override
@@ -66,12 +116,6 @@ class _DetailScreenState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text(todo.title),
-      //   backgroundColor: Colors.green,
-      // ),
-      bottomNavigationBar: NavigationBar(),
-      
       body: ListView(children: <Widget>[
         Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -79,7 +123,7 @@ class _DetailScreenState extends State<DetailScreen> {
             children: <Widget>[
               Stack(
                 children: <Widget>[
-                  Container(height: 300.0), 
+                  Container(height: 300.0),
                   Container(
                     height: 250.0,
                     width: MediaQuery.of(context).size.width * 1,
@@ -118,7 +162,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 ],
               ),
               Text(
-                widget.todo.title,
+                widget.todo.title.rendered,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                 textAlign: TextAlign.center,
               ),
@@ -129,7 +173,7 @@ class _DetailScreenState extends State<DetailScreen> {
                       left: 30, top: 10, right: 30, bottom: 30),
                   child: Container(
                     child: Text(
-                      widget.todo.description,
+                      widget.todo.content.rendered,
                       textAlign: TextAlign.justify,
                       style: TextStyle(fontSize: 20),
                     ),
