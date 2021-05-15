@@ -31,12 +31,21 @@ dependencies:
   url_launcher: ^6.0.3
   lottie: ^1.0.1
 
+
   # provider: ^4.3.0
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_native_splash: ^1.1.8
+flutter_native_splash:
+  color: "#ffffff"
+  image: images/ReceipeLogo.png
+  android: true
+  ios: true
+  android_gravity: fill_horizontal
+  
 
 
 # For information on the generic Dart part of this file, see the
