@@ -104,10 +104,7 @@ class _MainDrawerState extends State<MainDrawer> {
           title: Text(
             'Home',
             style: TextStyle(
-                fontFamily: 'Quicksand',
-                color: Colors.black,
-                fontSize: 20,
-                fontWeight: FontWeight.bold),
+                color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
           ),
           leading: Icon(
             Icons.home,

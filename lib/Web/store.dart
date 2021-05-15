@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+// import 'package:flutter/services.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:lottie/lottie.dart';
 
 class StoreWeb extends StatefulWidget {
   @override
@@ -34,6 +35,13 @@ class _StoreWebState extends State<StoreWeb> {
       clearCache: true,
       withLocalStorage: true,
       hidden: true,
+      initialChild: Center(
+        child: Container(
+            height: 60,
+            width: 80,
+            child: Lottie.asset('assets/Lottie/loadingLottie.json')),
+      ),
+
       bottomNavigationBar: Container(
         margin: EdgeInsets.only(bottom: 20),
         child: BottomNavigationBar(

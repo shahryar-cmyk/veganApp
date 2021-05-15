@@ -4,7 +4,8 @@ const BATH_PATH =
     'https://www.veganchoicefoods.com/adminapp.veganchoicefoods.com/wp-json';
 
 //WORDPRESS POST OF THE CONTENT
-const WORDPRESS_POST_OF_THE_CONTENT = '$BATH_PATH/wp/v2/posts';
+const WORDPRESS_POST_OF_THE_CONTENT =
+    '$BATH_PATH/wp/v2/posts?order=asc&&per_page=100';
 
 //Function of the Post Request
 class HttpRequestOfApp {

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:veganapp/Models/detail_latest_popular_screen.dart';
-import 'package:veganapp/Database/latest_dummy.dart';
+// import 'package:veganapp/Models/detail_latest_popular_screen.dart';
+// import 'package:veganapp/Database/latest_dummy.dart';
 import 'package:veganapp/bottom_navigation.dart';
-import 'package:veganapp/widgets/home.dart';
-import 'Models/detail_meal_screen.dart';
-import 'package:veganapp/Database/popular_dummy.dart';
-import 'package:veganapp/widgets/drawer.dart';
-import 'package:veganapp/widgets/navigation_bar.dart';
+// import 'package:veganapp/widgets/home.dart';
+// import 'Models/detail_meal_screen.dart';
+// import 'package:veganapp/Database/popular_dummy.dart';
+// import 'package:veganapp/widgets/drawer.dart';
+// import 'package:veganapp/widgets/navigation_bar.dart';
 
 main() {
   runApp(MyApp());
@@ -22,9 +22,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return Material(
       child: MaterialApp(
-        theme: ThemeData(
-          canvasColor: Colors.white,
-        ),
+        theme: ThemeData(canvasColor: Colors.white, fontFamily: 'Nunito'),
         debugShowCheckedModeBanner: false,
         title: 'Receipe App',
         home: BottomBarScreen(),

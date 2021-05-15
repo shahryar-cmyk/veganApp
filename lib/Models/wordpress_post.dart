@@ -36,6 +36,7 @@ class WordPressPost {
     this.meta,
     this.categories,
     this.tags,
+    this.featuredImageUrl,
     this.links,
   });
 
@@ -62,6 +63,7 @@ class WordPressPost {
   List<dynamic> meta;
   List<int> categories;
   List<dynamic> tags;
+  String featuredImageUrl;
   Links links;
 
   factory WordPressPost.fromJson(Map<String, dynamic> json) => WordPressPost(
@@ -108,6 +110,9 @@ class WordPressPost {
         tags: json["tags"] == null
             ? null
             : List<dynamic>.from(json["tags"].map((x) => x)),
+        featuredImageUrl: json["featured_image_url"] == null
+            ? null
+            : json["featured_image_url"],
         links: json["_links"] == null ? null : Links.fromJson(json["_links"]),
       );
 
@@ -140,6 +145,8 @@ class WordPressPost {
             ? null
             : List<dynamic>.from(categories.map((x) => x)),
         "tags": tags == null ? null : List<dynamic>.from(tags.map((x) => x)),
+        "featured_image_url":
+            featuredImageUrl == null ? null : featuredImageUrl,
         "_links": links == null ? null : links.toJson(),
       };
 }

@@ -42,12 +42,6 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     super.initState();
   }
 
-  void _selectIndex(int index) {
-    setState(() {
-      _isSelectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     // if (token != null)
