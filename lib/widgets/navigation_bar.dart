@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:provider/provider.dart';
+import 'package:veganapp/network_provider/post.dart';
 
 class NavigationBar extends StatefulWidget {
   @override
@@ -9,6 +11,7 @@ class NavigationBar extends StatefulWidget {
 class _NavigationBarState extends State<NavigationBar> {
   int page = 0;
   GlobalKey _bottomNavigationKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return Container(

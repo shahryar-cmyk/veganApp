@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 // import 'package:veganapp/Models/detail_latest_popular_screen.dart';
 // import 'package:veganapp/Database/latest_dummy.dart';
 import 'package:veganapp/bottom_navigation.dart';
+import 'package:veganapp/network_provider/post.dart';
+import 'package:veganapp/services/network_status_service.dart';
 // import 'package:veganapp/widgets/home.dart';
 // import 'Models/detail_meal_screen.dart';
 // import 'package:veganapp/Database/popular_dummy.dart';
@@ -9,7 +12,21 @@ import 'package:veganapp/bottom_navigation.dart';
 // import 'package:veganapp/widgets/navigation_bar.dart';
 
 main() {
-  runApp(MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<NetworkWordPress>(
+          create: (_) => NetworkWordPress(),
+        ),
+        StreamProvider<NetworkStatus>(
+          initialData: NetworkStatus.Offline,
+          create: (context) =>
+              NetworkStatusService().networkStatusController.stream,
+        ),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {

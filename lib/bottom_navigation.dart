@@ -1,7 +1,14 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:veganapp/Web/store.dart';
+import 'package:veganapp/network_provider/post.dart';
+import 'package:veganapp/services/network_aware_widget.dart';
+import 'package:veganapp/services/network_status_service.dart';
 import 'package:veganapp/widgets/about.dart';
 import 'package:veganapp/widgets/home.dart';
 
@@ -15,6 +22,7 @@ class BottomBarScreen extends StatefulWidget {
 class _BottomBarScreenState extends State<BottomBarScreen> {
   int _isSelectedIndex = 0;
   List<Map<String, Object>> pages;
+  var subscription;
   GlobalKey _bottomNavigationKey = GlobalKey();
   void share(BuildContext ctx) {
     Share.share('This is the Example App Check it out');
@@ -44,7 +52,9 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // if (token != null)
+    // final status =
+    //     Provider.of<NetworkStatusService>(context).networkStatusController;
+    // print('This is the Status of Bottom Navigation $status');
 
     return Scaffold(
       appBar: AppBar(
@@ -81,7 +91,25 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
         ),
         backgroundColor: Colors.green.shade900,
       ),
-      body: pages[_isSelectedIndex]['page'],
+      body: NetworkAwareWidget(
+          onlineChild: pages[_isSelectedIndex]['page'],
+          offlineChild: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Lottie.asset('assets/Lottie/online_offline.json'),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'You are Offline.\n For App to Work Properly.You have to Connect to Internet.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.red.shade200,
+                  ),
+                ),
+              ),
+            ],
+          )),
       bottomNavigationBar: Container(
         // color: Colors.white,
         height: 80,
