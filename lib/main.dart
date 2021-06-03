@@ -21,7 +21,7 @@ main() {
         StreamProvider<NetworkStatus>(
           initialData: NetworkStatus.Offline,
           create: (context) =>
-              NetworkStatusService().networkStatusController.stream,
+              NetworkStatusService().connectivityStreamController.stream,
         ),
       ],
       child: MyApp(),

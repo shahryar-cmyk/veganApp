@@ -60,28 +60,31 @@ class _HomeState extends State<Home> {
                 child: ListView.builder(
                   itemCount: listofWordPressPost.length,
                   itemBuilder: (context, index) {
-                    return Card(
-                      margin: EdgeInsets.all(5),
-                      elevation: 5,
-                      child: ListTile(
-                        //index the child data to
+                    return Container(
+                      child: Card(
+                        margin: EdgeInsets.all(5),
+                        elevation: 5,
+                        child: ListTile(
+                          //index the child data to
 
-                        title: Center(
-                          child: Text(listofWordPressPost[index].title.rendered,
-                              style: TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.w500),
-                              textAlign: TextAlign.justify),
-                        ),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => DetailScreen(
-                                todo: listofWordPressPost[index],
+                          title: Center(
+                            child: Text(
+                                listofWordPressPost[index].title.rendered,
+                                style: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.w500),
+                                textAlign: TextAlign.justify),
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DetailScreen(
+                                  todo: listofWordPressPost[index],
+                                ),
                               ),
-                            ),
-                          );
-                        },
+                            );
+                          },
+                        ),
                       ),
                     );
                   },
